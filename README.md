@@ -1,5 +1,5 @@
 # A PHP fpm Health Check Docker Container
-A alpine based php-fpm docker image with integrated healthcheck.
+An alpine based PHP-fpm docker image with integrated healthcheck.
 
 [![Deploy to Docker Hub](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml/badge.svg)](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dustin36x/php?logo=docker)](https://hub.docker.com/r/dustin36x/php/)
@@ -9,13 +9,18 @@ A alpine based php-fpm docker image with integrated healthcheck.
 
 ## Usage
 
-To run this Comtainer in combination you need this two files:
+To run this container in combination with nginx you need these two files:
 - `docker-compose.yml`
 - `conf.d/php.conf` 
 
 The two files below or in this repo.
 
-!!! PHP will not work wothout `conf.d/php.conf`, create it bevor you run docker !!!
+### Warning
+PHP will not work without `conf.d/php.conf`, create it before you deploy the container!
+
+
+---
+
 
 `docker-compose.yml` :
 
