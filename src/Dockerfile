@@ -1,3 +1,4 @@
+# 01.04.2023 16:01
 FROM php:8.2.4-fpm-alpine3.16
 
 RUN apk add --no-cache fcgi
