@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/php:latest,
-            ${{ secrets.DOCKERHUB_USERNAME }}/php:8.2
+            ${{ secrets.DOCKERHUB_USERNAME }}/php:8.2.3
