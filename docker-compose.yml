@@ -23,7 +23,7 @@ services:
         condition: service_healthy
 ########## PHP
   php:
-    image: dustin36x/php:latest
+    image: dustin36x/php-health:latest
     restart: unless-stopped
     networks:
       - backend
