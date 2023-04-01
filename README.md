@@ -1,5 +1,85 @@
-# php-fpm-healthcheck
+# A PHP fpm Health Check Docker Container
 A alpine based php-fpm docker image with integrated healthcheck.
 
 [![Deploy to Docker Hub](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml/badge.svg)](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dustin36x/php?logo=docker)](https://hub.docker.com/r/dustin36x/php/)
+
+- [Usage](#usage)
+- [Credits and License](#credits)
+
+## Usage
+
+To run this Comtainer in combination you need this two files:
+- `docker-compose.yml`
+- `conf.d/php.conf` 
+
+The two files below or in this repo.
+
+!!! PHP will not work wothout `conf.d/php.conf`, create it bevor you run docker !!!
+
+`docker-compose.yml` :
+
+```yml
+version: "3.5"
+services:
+################################
+########## Nginx
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    healthcheck: 
+      test: [ "CMD", "curl", "--fail", "http://localhost" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    networks:
+      - backend
+    ports:
+      - 80:80
+    volumes:
+      - ./www:/code
+      - ./conf.d:/etc/nginx/conf.d
+########## PHP
+  php:
+    image: dustin36x/php:latest
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - ./www:/code
+################################
+networks:
+  backend:
+    external: false
+    driver: bridge
+################################
+```
+
+
+`conf.d/php.conf` :
+
+```yml
+server {
+    index index.php index.html;
+    server_name nginx;
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    root /code;
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        }
+}
+```
+
+## Credits
+php-fpm-healtcheck by [Renato Mefi](https://github.com/renatomefi)
+
+Distributed under [MIT License](LICENSE)
