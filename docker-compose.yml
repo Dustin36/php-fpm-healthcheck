@@ -18,6 +18,9 @@ services:
     volumes:
       - ./www:/code
       - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      php:
+        condition: service_healthy
 ########## PHP
   php:
     image: dustin36x/php:latest
