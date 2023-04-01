@@ -2,7 +2,7 @@
 An alpine based PHP-fpm docker image with integrated healthcheck.
 
 [![Deploy to Docker Hub](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml/badge.svg)](https://github.com/Dustin36/php-fpm-healthcheck/actions/workflows/main.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/dustin36x/php?logo=docker)](https://hub.docker.com/r/dustin36x/php/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dustin36x/php-health?logo=docker)](https://hub.docker.com/r/dustin36x/php-health/)
 
 - [Usage](#usage)
 - [Credits and License](#credits)
@@ -50,7 +50,7 @@ services:
         condition: service_healthy
 ########## PHP
   php:
-    image: dustin36x/php:latest
+    image: dustin36x/php-health:latest
     restart: unless-stopped
     networks:
       - backend
