@@ -6,10 +6,9 @@ RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-do
 
 COPY ./php-fpm-healthcheck /usr/local/bin/
 
-HEALTHCHECK --interval=5s \
-            --timeout=5s \
-            CMD curl --fail http://127.0.0.1:3000
+RUN chmod +x /usr/local/bin/php-fpm-healthcheck
+
+HEALTHCHECK --interval=5s --timeout=5s --retries=15 \
+    CMD php-fpm-healthcheck || exit 1
 
 WORKDIR /code
-
-RUN chmod +x /usr/local/bin/php-fpm-healthcheck
