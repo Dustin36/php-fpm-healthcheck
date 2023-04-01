@@ -3,7 +3,7 @@ name: Deploy to Docker Hub
 on:
   push:
     branches: ['main']
-    paths: ['src/**']
+#    paths: ['src/**']
 
 jobs:
   build:
@@ -25,9 +25,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./src
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/s390x,linux/ppc64le,linux/386
-          file: ./src/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/php:latest,
