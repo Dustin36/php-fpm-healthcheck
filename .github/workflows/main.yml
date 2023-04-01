@@ -2,8 +2,8 @@ name: Deploy to Docker Hub
 
 on:
   push:
-    branches:
-      - "main"
+    branches: ['main']
+    paths: ['src/**']
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/s390x,linux/ppc64le,linux/386
-          file: ./Dockerfile
+          file: ./src/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/php:latest,
